@@ -3,13 +3,11 @@ namespace SpriteKind {
 }
 function change_floor (level: number) {
     if (level == 1) {
-        if (currFloor < maxFloor) {
-            currFloor += 1
-            mySprite.setPosition(11, mySprite.y)
-            mySprite2.setPosition(11, mySprite2.y)
-            mySprite.sayText(currFloor)
-        }
-    } else if (currFloor > 1) {
+        currFloor += 1
+        mySprite.setPosition(11, mySprite.y)
+        mySprite2.setPosition(11, mySprite2.y)
+        mySprite.sayText(currFloor)
+    } else {
         currFloor += -1
         mySprite.setPosition(scene.screenWidth() - 11, mySprite.y)
         mySprite2.setPosition(scene.screenWidth() - 11, mySprite2.y)
@@ -263,7 +261,6 @@ function change_floor (level: number) {
             `)
     }
 }
-let maxFloor = 0
 let currFloor = 0
 let mySprite2: Sprite = null
 let mySprite: Sprite = null
@@ -426,7 +423,7 @@ scene.setBackgroundImage(img`
     77777777777777777777777777777777777777777777777777777777777777777777777777777777777feeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef777777777777777777777777777777777
     `)
 currFloor = 1
-maxFloor = 5
+let maxFloor = 5
 mySprite.setStayInScreen(true)
 mySprite2.setStayInScreen(true)
 mySprite.setPosition(40, 79)
@@ -434,7 +431,7 @@ mySprite2.setPosition(30, 79)
 mySprite2.follow(mySprite)
 controller.moveSprite(mySprite)
 game.onUpdateInterval(200, function () {
-    if (mySprite.x >= scene.screenWidth() - 10 && currFloor <= maxFloor) {
+    if (mySprite.x >= scene.screenWidth() - 10 && currFloor < maxFloor) {
         change_floor(1)
     }
     if (mySprite.x <= 10 && currFloor > 1) {
